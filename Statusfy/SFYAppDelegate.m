@@ -28,7 +28,7 @@ static NSString * const SFYPlayerDockIconPreferenceKey = @"YES";
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:SFYPlayerDockIconPreferenceKey];
     
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-    self.statusItem.highlightMode = YES;
+    self.statusItem.button.cell.highlighted = YES;
     
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
     
@@ -50,8 +50,8 @@ static NSString * const SFYPlayerDockIconPreferenceKey = @"YES";
 
 - (void)setStatusItemTitle
 {
-    NSString *trackName = [[self executeAppleScript:@"get name of current track"] stringValue];
-    NSString *artistName = [[self executeAppleScript:@"get artist of current track"] stringValue];
+    NSString *trackName = [[self executeAppleScript:@"return name of current track"] stringValue];
+    NSString *artistName = [[self executeAppleScript:@"return artist of current track"] stringValue];
     
     if (trackName && artistName) {
         NSString *titleText = [NSString stringWithFormat:@"%@ - %@", trackName, artistName];
@@ -61,14 +61,14 @@ static NSString * const SFYPlayerDockIconPreferenceKey = @"YES";
             titleText = [NSString stringWithFormat:@"%@ (%@)", titleText, playerState];
         }
         
-        self.statusItem.image = nil;
-        self.statusItem.title = titleText;
+        self.statusItem.button.image = nil;
+        self.statusItem.button.title = titleText;
     }
     else {
         NSImage *image = [NSImage imageNamed:@"status_icon"];
         [image setTemplate:true];
-        self.statusItem.image = image;
-        self.statusItem.title = nil;
+        self.statusItem.button.image = image;
+        self.statusItem.button.title = @"";
     }
 }
 
