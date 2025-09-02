@@ -25,7 +25,7 @@ jobs:
 
       - run: |
           xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-          xcodebuild archive -archivePath dist -scheme Statusfy
+          xcodebuild archive -archivePath dist -scheme Statusfy CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
       - run: cp dist/Statusfy.xcarchive/Products/Applications/Statusfy.app Statusfy.app
 
       - name: Upload artifacts
