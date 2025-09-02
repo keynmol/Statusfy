@@ -26,12 +26,13 @@ jobs:
       - run: |
           xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
           xcodebuild archive -archivePath dist/Statusfy.xcarchive -scheme Statusfy CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-      - run: ls -l dist && cp dist/Statusfy.xcarchive/Products/Applications/Statusfy.app Statusfy.app
+      - run: ls -l dist && cp -r dist/Statusfy.xcarchive/Products/Applications/Statusfy.app Statusfy.app
+      - run: zip Statusfy.app 
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          path: Statusfy.app
+          path: Statusfy.app*
           name: ${{ matrix.os }}-binaries
           if-no-files-found: error
 
